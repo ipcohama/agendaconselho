@@ -1,24 +1,965 @@
----
-layout: default
-title: Google Sheets to Github Website - Links
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Igreja Presbiteriana da Cohama" />
+    <meta property="og:description" content="Confiando no evangelho e vivendo em comunidade" />
+    <meta property="og:url" content="http://www.ipcohama.com/" />
+    <meta property="og:site_name" content="Igreja Presbiteriana da Cohama" />
+    <meta property="og:image" content="http://www.ipcohama.com/wp-content/uploads/2019/12/WhatsApp-Image-2019-12-26-at-16.23.52-300x300.jpeg" />
+    <meta property="og:image:width" content="327" />
+    <meta property="og:image:height" content="327" />
+    <meta property="og:locale" content="pt_BR" />
+    <link rel="shortcut icon" href="http://www.ipcohama.com/wp-content/uploads/2014/03/favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css" integrity="sha256-kx16nUTlNRyEpdk7cvpnqblbDbTe/nADul9o2uYeGSw=" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.1.0/fullcalendar.css' />
 
-<!-- Pulls from _data links -->
-{% assign links = site.data.links %}
-{% assign links = links | sort:"Name" %}
+    <title>Visita Conselho</title>
+</head>
+<body>
 
-<h3>Links</h3>
-<table width="100%">
-{% for link in links %}
-  <tr>
-    <td><strong>{{ link.name }}</strong></td>
-    <td width="25%">{{ link.url }}</td>
-  </tr>
-{% endfor %}
-</table>
-<p align="center">
-  <a href="https://github.com/contrafabulists-toolbox/google-sheet-to-github-website">Github Repo</a> -
-  <a href="https://github.com/contrafabulists-toolbox/google-sheet-to-github-website/blob/master/_data/links.yaml">YAML</a> -
-  <a href="https://github.com/contrafabulists-toolbox/google-sheet-to-github-website/blob/master/pull-sheet/index.html">Pull Script</a> -
-  <a href="https://docs.google.com/spreadsheets/d/1M_trEXOgzOWVn5YJSWfcXYQ7CXu3F3CS2Y-bKEaDUiE/pubhtml">Google Sheet</a>
-</p>
+    <style>
+        @charset "UTF-8";
+
+        /* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[Color]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+        /* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[Font Family]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+        /* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[Page Global Rules]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+        /* HTML
+        -----*/
+        /* BODY
+        ------*/
+        /* GLOBAL
+        ----------*/
+        * {
+            box-sizing: border-box;
+        }
+        *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* HEADING
+        ---------*/
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+
+        /* HR
+        ----*/
+        /* LABEL
+        ------*/
+        /* INPUT PLAIN
+        -------------*/
+        /* INPUT SUBMIT & BUTTON
+        ----------------------*/
+        /* CUSTOM INPUT RADIO
+        ------------------==--*/
+        /* CUSTOM INPUT CHECKBOX
+        ----------------------*/
+        /* CUSTOM SELECT
+        --------------*/
+        /* PLACEHOLDER
+        ------------*/
+        /* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[Custom Global Style]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+        /* HTML
+        -----*/
+        /* BODY
+        -----*/
+        body {
+            background: #f7fcff;
+            display: flex;
+            /* mixin flex inline-flex*/
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            font-family: "Poppins", sans-serif;
+        }
+        @media (max-width: 992px) {
+            body {
+                margin: 1rem;
+            }
+        }
+
+        html, body {
+            height: 100%;
+        }
+        @media (max-width: 992px) {
+            html, body {
+                height: auto;
+            }
+        }
+
+        * {
+            outline: 0;
+        }
+
+        input[type=text],
+        input[type=email] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: .67rem .8rem;
+            margin-top: .6rem;
+            line-height: 1.2;
+            color: #233646;
+            transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+            border-radius: 5px;
+            border: 1px solid #d9d9d9;
+            font-family: "Poppins", sans-serif;
+            font-weight: 500;
+            font-size: 15px;
+        }
+        input[type=text]:focus,
+        input[type=email]:focus {
+            border: 1px solid rgba(74, 144, 226, 0.7);
+            box-shadow: 0px 0px 0 3px rgba(74, 144, 226, 0.3);
+        }
+
+        ::placeholder {
+            color: #8b9aa6;
+            font-size: 15px;
+        }
+
+        label {
+            color: #8b9aa6;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        input[type=button],
+        input[type=submit] {
+            border: 0;
+            padding: .6rem 0;
+            width: 138px;
+            border-radius: 5px;
+            background: #4a90e2;
+            color: #fff;
+            cursor: pointer;
+            font-family: "Poppins", sans-serif;
+            font-size: 15px;
+            font-weight: 400;
+            transition: all 250ms ease;
+        }
+        input[type=button]:hover,
+        input[type=submit]:hover {
+            transform: translateY(-3px);
+            box-shadow: 1px 10px 16px rgba(68, 104, 194, 0.18);
+        }
+        input[type=button]:active,
+        input[type=submit]:active {
+            position: relative;
+            top: 2px;
+            left: 2px;
+        }
+
+        /* CUSTOM SELECT - JS
+        -----------------------*/
+        .select-hidden {
+            display: none;
+            visibility: hidden;
+        }
+
+        .select {
+            cursor: pointer;
+            position: relative;
+            margin-top: .6rem;
+            font-family: "Poppins", sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .select-styled {
+            background-color: #fff;
+            color: #233646;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            padding: .7rem .8rem;
+            transition: all 250ms ease;
+            position: relative;
+            display:none;
+
+        }
+        .select-styled::after {
+            content: "\f3d0";
+            font-family: "Ionicons";
+            font-size: 17px;
+            display: inline-block;
+            color: #4a90e2;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 250ms ease-in;
+        }
+        .select-styled:hover {
+            background-color: #4a90e2;
+            color: #fff;
+        }
+        .select-styled:hover::after {
+            color: #fff;
+        }
+        .select-styled:active, .select-styled.active {
+            background-color: #4a90e2;
+            color: #fff;
+            box-shadow: 0px 0px 0 3px rgba(74, 144, 226, 0.3);
+        }
+        .select-styled:active::after, .select-styled.active::after {
+            color: #fff;
+            transform: rotate(180deg);
+            top: 25%;
+        }
+
+        .select-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+            margin: .45rem 0 0 0;
+            padding: .4rem 0;
+            list-style: none;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 10px 16px rgba(68, 104, 194, 0.18);
+        }
+        .select-options li {
+            margin: 0;
+            padding: 8px 15px;
+            transition: all 150ms ease-in;
+            color: #4a90e2;
+        }
+        .select-options li:hover {
+            background-color: #4a90e2;
+            color: #fff;
+        }
+        .select-options li[rel="hide"] {
+            display: none;
+        }
+
+        /* CUSTOM INPUT RADIO
+        ----------------------*/
+        .radio {
+            position: relative;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .radio .label {
+            position: relative;
+            display: inline-block;
+            vertical-align: text-top;
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #dfdfdf;
+            border-radius: 100%;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .radio .label::after {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 10px;
+            height: 10px;
+            border-radius: 100%;
+            background: #4a90e2;
+            transform: scale(0);
+            transition: all .2s ease;
+            opacity: .08;
+            pointer-events: none;
+        }
+        .radio:hover .label::after {
+            transform: scale(3.6);
+        }
+        .radio:hover .label::after {
+            transform: scale(3.6);
+        }
+        .radio input[type="radio"]:checked + .label {
+            border-color: #dfdfdf;
+        }
+        .radio input[type="radio"]:checked + .label::after {
+            transform: scale(1);
+            transition: all 0.2s cubic-bezier(0.35, 0.9, 0.4, 0.9);
+            opacity: 1;
+        }
+        .radio input[type="radio"].hidden {
+            display: none;
+        }
+
+        /* ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬[Start Page Style]▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ */
+        /*MAIN WRAPPER*/
+        .quick-reservation {
+            background: #fff;
+            width: 1020px;
+            margin: 0 auto;
+            /* Class margin-auto margin-r-auto margin-l-auto */
+            border-radius: 2px;
+            /* mixin & class radius-circle radius-circle-btns */
+            box-shadow: 0 43px 100px rgba(68, 104, 194, 0.18);
+        }
+        @media (max-width: 992px) {
+            .quick-reservation {
+                width: 100%;
+                margin: 1rem;
+            }
+        }
+        .quick-reservation .container {
+            display: grid;
+            /* mixin */
+            grid-template-columns: repeat(4, 1fr);
+            padding: 0 3.2rem;
+            /*FORM HEADER*/
+            /*FORM CONTENT*/
+            /*RES-INFO*/
+            /*FORM FOOTER*/
+        }
+        @media only screen and (max-width: 992px) {
+            .quick-reservation .container {
+                display: block;
+            }
+        }
+        .quick-reservation .container .quick-reservation__header {
+            grid-column: 1 / -1;
+            display: flex;
+            padding: 3rem 0;
+            border-bottom: 2px solid #f3f9fe;
+            position: relative;
+        }
+        .quick-reservation .container .quick-reservation__header .title {
+            margin: 0 auto;
+            color: #233646;
+            text-transform: uppercase;
+            font-size: 22px;
+            font-weight: 500;
+        }
+        .quick-reservation .container .quick-reservation__header .close-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            position: absolute;
+            /* Center Position Absolute V */
+            /*ABSOLUTE CENTERING ONLY REQUIRES A DECLARED HEIGHT*/
+            margin: auto;
+            top: 0;
+            /*  TOP & BOTTOM to (center Verticaly) only. */
+            bottom: 0;
+            /*  TOP & BOTTOM to (center Verticaly) only. */
+            right: 0;
+            /* RIGHT to (pull to right) only */
+            /* Center Position Absolute V */
+            transition: all 300ms ease;
+            transition-timing-function: cubic-bezier(0.05, 1.8, 1, 1.57);
+        }
+        .quick-reservation .container .quick-reservation__header .close-icon:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 10px 30px -14px #000;
+        }
+        .quick-reservation .container .quick-reservation__header .close-icon:active {
+            top: 3px;
+            right: -3px;
+            box-shadow: 0px 8px 30px -14px #000;
+        }
+        .quick-reservation .container .quick-reservation__header .close-icon span {
+            display: inline-flex;
+            width: 3px;
+            height: 33px;
+            border-radius: 3px;
+            background: #ccc;
+            position: absolute;
+            /* Center Position Absolute V & H */
+            /*ABSOLUTE CENTERING ONLY REQUIRES A DECLARED HEIGHT*/
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /* Center Position Absolute V & H */
+            transform: rotate(-45deg);
+        }
+        .quick-reservation .container .quick-reservation__header .close-icon span:last-child {
+            transform: rotate(45deg);
+        }
+        .quick-reservation .container .quick-reservation__form {
+            grid-column: span 3;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content {
+            min-height: 100%;
+            padding: 2.5rem 2rem 2.5rem 0;
+        }
+        @media only screen and (max-width: 992px) {
+            .quick-reservation .container .quick-reservation__form .form__content {
+                padding-right: 0;
+            }
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper {
+            display: flex;
+        }
+        @media only screen and (max-width: 830px) {
+            .quick-reservation .container .quick-reservation__form .form__content .row-wrapper {
+                display: block;
+            }
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper:not(:last-child) {
+            margin-bottom: 1.8rem;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele {
+            flex: 1;
+            font-size: 0;
+        }
+        @media only screen and (max-width: 830px) {
+            .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele {
+                width: 100%;
+            }
+            .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele:not(:last-child) {
+                margin-bottom: 2rem;
+            }
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele:not(:last-child) {
+            margin-right: 1.3rem;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .ele select {
+            width: 100%;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .rate-type, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .first-name,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .last-name, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .email-address,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .phone-number {
+            flex: 0;
+            /* Important - I used it without planning, but I dont't understand how it works and gave me what i need.*/
+            flex-basis: 256px;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .rate-type input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .rate-type select, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .first-name input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .first-name select,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .last-name input,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .last-name select, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .email-address input, .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .email-address select,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .phone-number input,
+        .quick-reservation .container .quick-reservation__form .form__content .row-wrapper .phone-number select {
+            width: 100%;
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .more-options {
+            margin-top: 2.2rem;
+        }
+        @media only screen and (max-width: 500px) {
+            .quick-reservation .container .quick-reservation__form .form__content .more-options {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .more-options label {
+            text-transform: none;
+        }
+        @media only screen and (max-width: 500px) {
+            .quick-reservation .container .quick-reservation__form .form__content .more-options label:not(:last-child) {
+                margin-bottom: 1.4rem;
+            }
+        }
+        .quick-reservation .container .quick-reservation__form .form__content .more-options label:not(:last-child) {
+            margin-right: 1.6rem;
+        }
+        .quick-reservation .container .reservation-info {
+            grid-column: 4 / 5;
+            padding: 2.5rem 0 2.5rem 2rem;
+        }
+        @media only screen and (max-width: 992px) {
+            .quick-reservation .container .reservation-info {
+                padding: 1rem 0 2.5rem;
+            }
+        }
+        .quick-reservation .container .reservation-info .data:not(:last-child) {
+            margin-bottom: 2.3rem;
+        }
+        .quick-reservation .container .reservation-info .data .data__head {
+            color: #8b9aa6;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            margin-bottom: .5rem;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .quick-reservation .container .reservation-info .data .data__description {
+            margin: 0;
+            color: #233646;
+            line-height: 1.4;
+            font-size: 18px;
+            font-weight: 800;
+        }
+        .quick-reservation .container .form__footer {
+            grid-column: 1 / -1;
+            display: grid;
+            /* mixin */
+            grid-template-columns: repeat(4, 1fr);
+            justify-content: flex-end;
+            padding: 3rem 0;
+            border-top: 2px solid #f3f9fe;
+        }
+        @media only screen and (max-width: 600px) {
+            .quick-reservation .container .form__footer {
+                display: block;
+            }
+        }
+        .quick-reservation .container .form__footer .footer-wrapper {
+            grid-column: 1 / 4;
+            justify-self: end;
+        }
+        @media only screen and (max-width: 992px) {
+            .quick-reservation .container .form__footer .footer-wrapper {
+                grid-column: 1 / -1;
+                justify-self: center;
+            }
+        }
+        @media only screen and (max-width: 830px) {
+            .quick-reservation .container .form__footer .footer-wrapper {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .quick-reservation .container .form__footer .footer-wrapper input[type=button]:not(:last-child),
+        .quick-reservation .container .form__footer .footer-wrapper input[type=submit]:not(:last-child) {
+            margin-right: 1.3rem;
+        }
+        @media only screen and (max-width: 600px) {
+            .quick-reservation .container .form__footer .footer-wrapper input[type=button],
+            .quick-reservation .container .form__footer .footer-wrapper input[type=submit] {
+                width: 100%;
+            }
+        }
+        @media only screen and (max-width: 830px) {
+            .quick-reservation .container .form__footer .footer-wrapper input[type=button]:not(:last-child),
+            .quick-reservation .container .form__footer .footer-wrapper input[type=submit]:not(:last-child) {
+                margin-right: 0;
+                margin-bottom: 1.3rem;
+            }
+        }
+
+        /*------------*/
+        .after {
+            z-index: -1;
+        }
+        @media (max-width: 992px) {
+            .after {
+                margin: 200px 30px;
+            }
+        }
+
+        #calendar {
+            width: 80%;
+
+        }
+
+
+        /* ------- Agenda View ------- */
+        #agendaView > table{
+            width: 100%;
+            min-height: 500px;
+            background: #FFF;
+
+        }
+
+        #agendaView .fc-agendaView-event-start,
+        #agendaView .fc-agendaView-event-end{
+            width: 20%;
+        }
+
+        #agendaView .fc-agendaView-event-title{
+            width: 60%;
+        }
+        #agendaView th{
+            height: 30px;
+            font-size: 14px;
+            vertical-align: text-bottom;
+            font-weight: bold;
+            padding: 10px 0 0 10px;
+        }
+
+        #agendaView td{
+            height: 30px;
+            padding: 10px 0 0 10px;
+            font-size: 14px;
+            vertical-align: text-bottom;
+        }
+
+        .select2-container {
+            max-width: 100%;
+        }
+
+        .title {
+            transform: translateY(30px);
+        }
+
+
+    </style>
+
+    <form class="quick-reservation">
+
+        <div class="container">
+            <header class="quick-reservation__header">
+                <h2 class="title">
+                    Agendar Visita
+                </h2>
+                <div class="close-icon">
+                    <span></span>
+                    <span></span>
+                </div>
+                <img src="http://www.ipcohama.com/wp-content/uploads/2014/03/image1.jpg" alt="Igreja Presbiteriana da Cohama" id="logo" style="
+                position: absolute;
+                width: 20%;
+                min-width: 120px;
+                top: 23%;
+                ">
+            </header>
+
+            <div class="quick-reservation__form">
+                <section class="form__content">
+
+                    <div class="row-wrapper">
+                        <div class="ele adults">
+                            <label for="title">Agendas Disponíveis</label>
+                            <select name="title" id="agenda" class='select2'>
+                                <option value="hide">selecione uma opção</option>
+                            </select>
+                            <div class="select-styled" style="
+                            display: none;
+                            ">06 mai. 2020 as 19:00</div>
+                        </div>
+
+                    </div>
+                    <div class="row-wrapper">
+                        <div class="ele first-name">
+                            <label for="nome">Nome</label>
+                            <input type="text" value="" placeholder="Nome Completo" id="nome">
+                        </div>
+                        <div class="ele email-address">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" value="" placeholder="Email" id="email">
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="reservation-info">
+                <div class="ele data">
+                    <h4 class="data__head">Atenção</h4>
+                    <p class="text-muted" style="color: #233546d4">Caso seja necessário uma mudança repentina, por favor entre em contato por telefone</p>
+                </div>
+            </div>
+
+            <footer class="form__footer">
+                <div class="footer-wrapper">
+                    <input type="submit" value="Agendar" id="enviar">
+                </div>
+            </footer>
+        </div>
+
+    </form>
+
+    <p class="after" style="display: none; color: #777; font-weight: 200;"></p>
+    <div id="calendar"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha256-KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms=" crossorigin="anonymous"></script>
+
+    <script>
+        let token = 'xoxp-35834828099-326062413654-632731147127-a389606e1e3aa17a92445e8818e0d4a5';
+
+        // • Based on & inspired from dribbble: https://dribbble.com/shots/4630196-Quick-Reservation-UI-Design
+
+        // • JS Code Reference: http://jsfiddle.net/BB3JK/47/
+
+        // • May 30, 2018
+        // • Front-end Daily Practice
+        // • frontenddaily.blogspot.com
+
+        // Custom Select
+
+        $(function() {
+            $('.quick-reservation').hide();
+            $('.quick-reservation').fadeIn(1400);
+            $('.close-icon').click(function (e) {
+                $('.quick-reservation').fadeOut(500);
+                e.stopPropagation();
+                $('.after').show(1000);
+                e.stopPropagation();
+
+            });
+
+            let url = new URL('https://script.google.com/macros/s/AKfycbzxHJw8mdTUfMv9x0K67dk69oA1ugBSkoO2fttWiR9NycsmgoG_/exec');
+            let params ={'token': token, key: 'todos'};
+
+            url.search = new URLSearchParams(params).toString();
+
+            fetch(url).then((e) => {
+                return e.json();
+            }).then((res) => {
+                let $select = document.querySelector('#agenda');
+
+                try {
+                    res.text.forEach(function (e) {
+                        if (e.reserva == 'red' && e.evento != 'Dia') {
+                            let opt = new Option(e.evento, e.evento);
+                            $select.appendChild(opt);
+                        }
+                    })
+
+                    $('select').each(function(){
+                        var $this = $(this), numberOfOptions = $(this).children('option').length;
+
+                        $this.addClass('select-hidden');
+                        $this.wrap('<div class="select"></div>');
+                        $this.after('<div class="select-styled"></div>');
+
+                        var $styledSelect = $this.next('div.select-styled');
+                        $styledSelect.text($this.children('option').eq(0).text());
+
+                        var $list = $('<ul />', {
+                            'class': 'select-options'
+                        }).insertAfter($styledSelect);
+
+                        for (var i = 0; i < numberOfOptions; i++) {
+                            $('<li />', {
+                                text: $this.children('option').eq(i).text(),
+                                rel: $this.children('option').eq(i).val()
+                            }).appendTo($list);
+                        }
+
+                        var $listItems = $list.children('li');
+
+                        $styledSelect.click(function(e) {
+                            e.stopPropagation();
+                            $('div.select-styled.active').not(this).each(function(){
+                                $(this).removeClass('active').next('ul.select-options').hide();
+                            });
+                            $(this).toggleClass('active').next('ul.select-options').toggle();
+                        });
+
+                        $listItems.click(function(e) {
+                            e.stopPropagation();
+                            $styledSelect.text($(this).text()).removeClass('active');
+                            $this.val($(this).attr('rel'));
+                            $list.hide();
+                            //console.log($this.val());
+                        });
+
+                        $(document).click(function() {
+                            $styledSelect.removeClass('active');
+                            $list.hide();
+                        });
+
+                    });
+                    $('#agenda').select2();
+
+                } catch (error) {
+                    console.log(error);
+                    swal({
+                        icon: 'error',
+                        title: 'Um erro foi disparado, entre em contato com o representante para informar a respeito',
+                    });
+                }
+
+            })
+
+            $('#enviar').on('click', function (e) {
+                e.preventDefault();
+
+                let nome = $('#nome').val(),
+                email = $('#email').val(),
+                data = $('#agenda').find(':selected').val();
+
+                if (!nome || !email || data  == 'hide') {
+                    swal({
+                        icon: 'error',
+                        title: 'Nome e Email e uma Data precisam estar preencidos para agendar visita',
+                    });
+
+                    return false;
+                }
+
+                swal({
+                    icon: 'info',
+                    title: 'Aguarde, estamos processando sua requisição',
+                    timer: '1000',
+                });
+
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+                var urlencoded = new URLSearchParams();
+                urlencoded.append("nome", nome);
+                urlencoded.append("email", email);
+                urlencoded.append("token", "xoxp-35834828099-326062413654-632731147127-a389606e1e3aa17a92445e8818e0d4a5");
+                urlencoded.append("data", data);
+                urlencoded.append("key", "create");
+
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: 'follow'
+                };
+
+                fetch("https://script.google.com/macros/s/AKfycbzxHJw8mdTUfMv9x0K67dk69oA1ugBSkoO2fttWiR9NycsmgoG_/exec", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+
+                    swal({
+                        icon: 'success',
+                        title: 'Visita registrada com sucesso!',
+                        timer: '4000',
+                    });
+
+                    setTimeout(() => {location.reload()}, '2000');
+
+                })
+                .catch(error => {
+                    swal({
+                        icon: 'error',
+                        title: 'Não foi possível processar sua requisição por favor entre em contato com o responsável para informar o ocorrido',
+                        timer: '4000',
+                    });
+                    console.log('error', error)
+                });
+            })
+
+        });
+
+        function makeCalendar() {
+            var $calendar = $("#calendar");
+            $calendar.fullCalendar({
+                header: {
+                    left: ' today,prev,next,  title',
+                    right: 'month,agendaWeek,agendaDay '
+                },
+                weekends: true,
+                allDaySlot: true,
+                droppable: true, /* 允許拖入 */
+                eventAfterAllRender:function(view){
+                    var header =  $calendar.find(".fc-header");
+                    // trigger current view
+                    header.find('.fc-header-right').find('.fc-button').off('mouseup').on('mouseup', function(){
+                        if(!$(this).hasClass('fc-button-agendaView')){
+                            $calendar.data("view", '');
+                        }
+                    });
+
+                    //用來辨別是否在agendaView，是則重繪，否則移除
+                    if( $calendar.data("view") != 'agendaView' ){
+                        header.find(".fc-button-agendaView").removeClass('fc-state-active active');
+                        $("#agendaView").remove();
+
+                    }else{
+                        renderAgendaView();
+                    }
+
+
+
+                },
+                eventRender: function(event, e){
+
+                    currentView = $('#calendar').fullCalendar('getView').name; /* 用來偵測哪個view進行什麼樣的處理用 */
+                },dayClick: function(date, jsEvent, view) {
+                    /* 點選日期觸發 */
+
+
+                },
+                eventClick: function(calEvent, jsEvent, view) {
+                    console.log("===== eventClick =====");
+                    console.log(calEvent);
+
+
+                }
+            });
+
+            var headerRight = $calendar.find(".fc-header").find(".fc-header-right");
+
+            var agendaBtn = headerRight.find(".fc-corner-right").removeClass('fc-corner-right')
+            .clone().addClass('fc-corner-right fc-button-agendaView').removeClass('fc-button-agendaDay').text("agenda");
+
+            agendaBtn.on('click', function(){
+                renderAgendaView();
+            });
+
+            headerRight.find(".fc-header-space").before(agendaBtn);
+
+            // test event data
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var newEvent = {
+                title: 'NEW EVENT',
+                start: new Date(y, m, d, 10),
+                end: new Date(y, m, d, 15),
+                editable: true
+            };
+
+            // add event to calendar
+            var event = $('#calendar').fullCalendar( 'renderEvent', newEvent , 'stick');
+
+            function renderAgendaView(){
+
+                if($calendar.fullCalendar('getView') != 'agendaView'){
+                    // 複製原本的month為agendaView ，這樣可解決切換為agenda View時 month 無法點之問題
+                    $calendar.fullCalendar( 'changeView', 'month' );
+                    var newView = $calendar.fullCalendar('getView');
+                    newView.name = 'agendaView';
+
+                    $calendar.fullCalendar( 'changeView', 'agendaView' );
+                }
+
+                // get current events in memory
+                var events = $calendar.fullCalendar( 'clientEvents' );
+
+                // get current date
+                var currentDate = $calendar.fullCalendar( 'getDate' );
+
+                $calendar.find(".fc-header").find(".fc-button-agendaView").siblings().removeClass('fc-state-active').end().addClass('fc-state-active');
+
+                $calendar.data("view", 'agendaView');
+                var agendaViewHtml = document.createElement('div');
+                agendaViewHtml.setAttribute("id", "agendaView");
+                var contents = "<table>" +
+                    "<thead><tr>" +
+                        "<th class='fc-widget-header fc-agendaView-event-start'>DateStart</th>" +
+                        "<th class='fc-widget-header fc-agendaView-event-end'>DateEnd</th>" +
+                        "<th class='fc-widget-header fc-agendaView-event-title'>Event</th>" +
+                        "</tr></thead>" +
+                        "<tbody>";
+
+                            for (key in events) {
+                                //  detect month range
+                                var monthRange = moment().range(moment(currentDate).startOf('month'), moment(currentDate).endOf('month'));
+                                var eventStart = moment(events[key].start).format("YYYY/MM/DD-H:mm:ss");
+                                var eventEnd = moment(events[key].end).format("YYYY/MM/DD-H:mm:ss");
+                                if(monthRange.contains(events[key].start) && monthRange.contains(events[key].end)){
+                                    var eventTitle = events[key].title;
+                                    contents += '<tr>' +
+                                        '<td class="fc-widget-content">' + eventStart + '</td>' +
+                                        '<td class="fc-widget-content">' + eventEnd + '</td>' +
+                                        '<td class="fc-widget-content">' + eventTitle + '</td>' +
+                                        '</tr>';
+
+                                    }
+                                }
+                                contents += "</tbody></table>";
+                                agendaViewHtml.innerHTML = contents;
+                                $calendar.find(".fc-content").html(agendaViewHtml);
+
+                                // console.log(events);
+                            }
+                        }
+
+    </script>
+
+</body>
+</html>
