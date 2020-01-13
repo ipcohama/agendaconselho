@@ -642,6 +642,8 @@
                             <label for="email">Email</label>
                             <input type="email" name="email" value="" placeholder="Email" id="email">
                         </div>
+                    </div>
+                    <div class="row-wrapper">
                          <div class="ele obs">
                             <label for="obs">Observação</label>
                             <input type="textarea" name="obs" value="" placeholder="obs" id="obs">
@@ -697,7 +699,7 @@
 
             });
 
-            let url = new URL('https://script.google.com/macros/s/AKfycbzxHJw8mdTUfMv9x0K67dk69oA1ugBSkoO2fttWiR9NycsmgoG_/exec');
+            let url = new URL('https://script.google.com/macros/s/AKfycbzfJku4vJTkbay4z1LfLmojyOJpmy2j2n6oFvzNQ10cseCMB_nE/exec');
             let params ={'token': token, key: 'todos'};
 
             url.search = new URLSearchParams(params).toString();
