@@ -790,7 +790,7 @@
                 data = $('#agenda').find(':selected').val(),
                 local = $('#local').find(':selected').val();
 
-                if (!nome || !email || !local ||  data  == 'hide') {
+                if (!nome || !email || local == 'hide' ||  data  == 'hide') {
                     swal({
                         icon: 'error',
                         title: 'Nome , Email , Local e uma Data precisam estar preencidos para agendar visita',
