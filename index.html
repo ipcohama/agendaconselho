@@ -652,8 +652,8 @@
                     <div>
                          <div class="ele local">
                             <label for="local">Local da visita</label>
-                            <input type="radio" name="local" id="local" value="casa" align="left" checked="true"><label for="local">Na minha residencia</label>
-                            <input type="radio" name="local" id="local" value="conselho" align="left"><label for="local">Posso ir ao encontro do conselho</label>
+                            <input type="radio" name="local" class="local" value="casa" align="left" checked="true"><label for="local">Na minha residencia</label>
+                            <input type="radio" name="local" class="local" value="conselho" align="left"><label for="local">Posso ir ao encontro do conselho</label>
                         </div>
                     </div>
                 </section>
@@ -787,8 +787,9 @@
                 let nome = $('#nome').val(),
                 email = $('#email').val(),
                 obs = $('#obs').val(),
-                data = $('#agenda').find(':selected').val(),
-                local = $('#local').find(':checked').val();
+                local = $('#local').find(':checked').val(),
+                data = $('#agenda').find(':selected').val();
+                
 
                 if (!nome || !email || local == 'hide' ||  data  == 'hide') {
                     swal({
