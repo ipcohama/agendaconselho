@@ -650,7 +650,7 @@
                         </div>
                     </div>
                     <div>
-                         <div class="ele obs">
+                         <div class="ele local">
                             <label for="local">Local da visita</label>
                             <input type="radio" name="local" id="local" value="casa" align="left"><label for="local">Na minha residencia</label>
                             <input type="radio" name="local" id="local" value="conselho" align="left"><label for="local">Posso ir ao encontro do conselho</label>
@@ -787,12 +787,13 @@
                 let nome = $('#nome').val(),
                 email = $('#email').val(),
                 obs = $('#obs').val(),
-                data = $('#agenda').find(':selected').val();
+                data = $('#agenda').find(':selected').val(),
+                local = $('#local').find(':selected').val();
 
-                if (!nome || !email || data  == 'hide') {
+                if (!nome || !email || !local ||  data  == 'hide') {
                     swal({
                         icon: 'error',
-                        title: 'Nome e Email e uma Data precisam estar preencidos para agendar visita',
+                        title: 'Nome , Email , Local e uma Data precisam estar preencidos para agendar visita',
                     });
 
                     return false;
@@ -811,6 +812,7 @@
                 urlencoded.append("nome", nome);
                 urlencoded.append("email", email);
                 urlencoded.append("obs", obs);
+                urlencoded.append("local", local);
                 urlencoded.append("token", "xoxp-35834828099-326062413654-632731147127-a389606e1e3aa17a92445e8818e0d4a5");
                 urlencoded.append("data", data);
                 urlencoded.append("key", "create");
