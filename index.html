@@ -788,7 +788,7 @@
                 email = $('#email').val(),
                 obs = $('#obs').val(),
                 data = $('#agenda').find(':selected').val(),
-                local = $('#local').find(':selected').val();
+                local = $('#local').find(':checked').val();
 
                 if (!nome || !email || local == 'hide' ||  data  == 'hide') {
                     swal({
