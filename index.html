@@ -729,7 +729,7 @@
                 try {
                 let livre = 0;
                 res.text.forEach(function (e) {
-                        if (e.reserva == ‘red’ && e.evento != ‘Dia’) {
+                        if (e.reserva == 'red' && e.evento != 'Dia') {
                             let opt = new Option(e.evento, e.evento);
                             $select.appendChild(opt);
                             livre++;
