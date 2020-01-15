@@ -670,7 +670,7 @@
                 justify-content: space-between;
                 margin-bottom: 25px;
                 color: #8B9AA6;
-            “><span id=livre class="text-muted" style=”
+            “><span id=livre class="text-muted style=”
                 padding: 12px;
                 border-bottom: 1px solid;
             “></span>
@@ -735,7 +735,7 @@
                             livre++;
                         } 
                     })
-            document.querySelector('#livre').innerHTML = livre + ' vagas disponiveis';
+            document.querySelector('#livre').innerHTML = '#' + livre;
                     $('select').each(function(){
                         var $this = $(this), numberOfOptions = $(this).children('option').length;
 
