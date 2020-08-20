@@ -702,8 +702,6 @@
             fetch(url).then((e) => {
                 return e.json();
             }).then((res) => {
-                let $select = document.querySelector('#agenda');
-
                 try {
                 let livre = 0;
                 res.text.forEach(function (e) {
@@ -713,7 +711,7 @@
                             livre++;
                         } 
                     })
-            document.querySelector('#livre').innerHTML = '#' + livre;
+                document.querySelector('#livre').innerHTML = '#' + livre;
                 } catch (error) {
                     console.log(error);
                     swal({
@@ -728,13 +726,10 @@
                 e.preventDefault();
 
                 let nome = $('#nome').val(),
-                email = $('#email').val(),
-                obs = $('#obs').val(),
-                local = $('.local').find(':checked').val(),
-                data = $('#agenda').find(':selected').val();
-                
+                pessoas = $('#pessoas').val(),
+                turno = $('.turno').find(':checked').val(),
 
-                if (!nome || !email || local == 'hide' ||  data  == 'hide') {
+                   if (!nome || !pessoas || turno == 'hide' ) {
                     swal({
                         icon: 'error',
                         title: 'Nome , Email , Local e uma Data precisam estar preencidos para agendar visita',
